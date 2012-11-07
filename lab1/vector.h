@@ -11,16 +11,16 @@ private:
 
 public:
 	Vector();                                           //CONSTRUCTOR
-	Vector(unsigned int);                               //CONSTRUCTOR (size input)
+	explicit Vector(unsigned int);                      //CONSTRUCTOR (size input)
 	Vector(const Vector&);                              //COPY CONSTRUCTOR
 	Vector(Vector&&);                                   //MOVE CONSTRUCTOR
 	~Vector();                                          //DESTRUCTOR
 
     Vector& operator=(const Vector&);                   //COPY ASSIGNMENT OPERATOR
     Vector& operator=(Vector&&);                        //MOVE ASSIGNMENT OPERATOR
-    Vector& operator=(initializer_list<unsigned int>);          //ASSGNMENT OPERATOR FOR INITIALIZER LIST
-    //unsigned int operator[](const unsigned int);        //OVERLOADING THE [] OPERATOR
-    
-    void print();                                       //PRINTING ALL ELEMENTS IN array
+    Vector& operator=(initializer_list<unsigned int>);  //ASSGNMENT OPERATOR FOR INITIALIZER LIST
+    unsigned int& operator[](const unsigned int);       //OVERLOADING THE [] OPERATOR
+    unsigned int& operator[](const unsigned int) const; //OVERLOADING THE [] OPERATOR (const)
+    void print() const;                                 //PRINTING ALL ELEMENTS IN array
 };
 

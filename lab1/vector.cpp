@@ -3,9 +3,8 @@
 using namespace std;
 #include "vector.h"
 #include <initializer_list>
-#ifndef VECTOR_H_
-#define VECTOR_H_
-
+#include <stdexcept>
+//size must be larger than the amount of elements to leave room for more
 
 //CONSTRUCTOR
 Vector::Vector()
@@ -20,7 +19,7 @@ Vector::Vector(unsigned int sizeIn)
     size = sizeIn;
     array = new unsigned int[size];
 
-    for(int i=0;i++;i<size){
+    for(int i=0;i<size;++i){
         array[i] = 0;
     }
 }
@@ -31,8 +30,8 @@ Vector::Vector(const Vector& other)
     size = other.size;
     array = new unsigned int[size];
 
-    for(int i=0;i++;i<size){
-        array[i] = 0;
+    for(int i=0;i<size;++i){
+        array[i] = other.array[i];
     }
 }
 
@@ -54,17 +53,29 @@ Vector::~Vector()
 //COPY ASSIGNMENT OPERATOR
 Vector& Vector::operator=(const Vector& other)
 {
-    size = other.size;
-    array = new unsigned int[size];
+    if(&other != this){
+        //DESTROY
+        delete[] array;
+        //ERASE
+        array = NULL;
+        //IMPROVE
+        size = other.size;
+        array = new unsigned int[size];
 
-    for(int i=0;++i;i<size){
-        array[i] = other.array[i];
+        for(int i=0;i<size;++i){
+            array[i] = other.array[i];
+        }
     }
 }
 
 //MOVE ASSIGNMENT OPERATOR
 Vector& Vector::operator=(Vector&& other)
 {
+    //DESTROY
+    delete[] array;
+    //ERASE
+    array = NULL;
+    //IMPROVE
     size = other.size;
     array = other.array;
     other.array = NULL;
@@ -73,20 +84,45 @@ Vector& Vector::operator=(Vector&& other)
 //initialier_list ASSIGNMENT OPERATOR
 Vector& Vector::operator=(initializer_list<unsigned int> listIn)
 {
+    //DESTROY
+    delete[] array;
+    //ERASE
+    array = NULL;
+    //IMPROVE
     size = sizeof(listIn);
     array = new unsigned int[size];
-
-    for(int i=0;++i;i<size){
-        array[i] = listIn[i];
+    
+    int i = 0;
+    initializer_list<unsigned int>::iterator it;
+    for(it=listIn.begin();it<listIn.end();++it){
+        array[i] = *it;
+        ++i;
     }
 }
 
+//OVERLOADING THE [] OPERATOR
+unsigned int& Vector::operator[](const unsigned int nrIn)
+{
+    if(nrIn >= size){
+        throw std::out_of_range ("OUT OF RANGE!!");
+    }
+    return array[nrIn];
+}
+
+//OVERLOADING THE [] OPERATOR (const)
+unsigned int& Vector::operator[](const unsigned int nrIn) const
+{
+    if(nrIn >= size){
+        throw std::out_of_range ("OUT OF RANGE!!");
+    }
+    return array[nrIn];
+}
+
 //PRINT
-void Vector::print()
+void Vector::print() const
 {
     for(int i=0;i<size;++i){
         cout<<*(array+i)<<" ";
     }
     cout<<endl;
 }
-#endif /* VECTOR_H_ */
