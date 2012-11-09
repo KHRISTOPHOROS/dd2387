@@ -175,13 +175,27 @@ cout<<"&bolder:\t"<<&bolder<<endl;
     if(vaktar.exists(7)){ cout<<"FOUND"<<endl; }
     else{ cout<<"NOT FOUND"<<endl; }
 
+//TESTING CONST
+cout<<"########## CONST ##########"<<endl;
+const Vector<int> constantine = Vector<int>(10,7);
+Vector<int> cop = constantine;
+cout<<constantine[0]<<endl;
+//constantine[0] = 3; //GIVES COMPILE ERROR AS WANTED
+cop[0] = 3;
+cop[1] = constantine[3];
 
+cop.clear();
 
-
-
-
-
-
+int tre = 3;
+int ett = 1;
+Vector<int> bag = Vector<int>(2);
+cout<<"hej"<<endl;
+bag[0] = tre;
+bag[1] = ett;
+printVector(bag);
+bag.clear();
+printVector(bag);
+cout<<ett<<endl;
 
 
 
