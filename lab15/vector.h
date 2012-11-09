@@ -26,7 +26,7 @@ public:
     Vector<Type>& operator=(Vector&&);                  //MOVE ASSIGNMENT OPERATOR
     Vector<Type>& operator=(initializer_list<Type>);    //ASSGNMENT OPERATOR FOR INITIALIZER LIST
     Type& operator[](unsigned int);                     //OVERLOADING THE [] OPERATOR
-    Type& operator[](unsigned int) const;               //OVERLOADING THE [] OPERATOR (const)
+    Type operator[](unsigned int) const;                //OVERLOADING THE [] OPERATOR (const)
     
     void print() const;                                 //PRINTING ALL ELEMENTS IN array
     int size() const;                                   //RETURNS THE SIZE OF THE ARRAY (CAPACITY)
@@ -171,7 +171,7 @@ Type& Vector<Type>::operator[](const unsigned int nrIn)
 
 //OVERLOADING THE [] OPERATOR (const)
 template <class Type>
-Type& Vector<Type>::operator[](const unsigned int nrIn) const
+Type Vector<Type>::operator[](const unsigned int nrIn) const
 {
     if(nrIn >= arraySize){
         throw std::out_of_range ("OUT OF RANGE!!");
