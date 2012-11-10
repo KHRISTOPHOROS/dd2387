@@ -280,13 +280,13 @@ template <class Type>
 void Vector<Type>::clear()
 {
     //DESTROY
-    //delete[] array;
+    delete[] array;
     //ERASE
-    //array = NULL;
+    array = NULL;
     //IMPROVE
-    //arraySize = 0;
-    //trueSize = 0;
-    //array = new Type(arraySize);
+    arraySize = 0;
+    trueSize = 0;
+    array = new Type[arraySize];
 }
 
 //SORT
